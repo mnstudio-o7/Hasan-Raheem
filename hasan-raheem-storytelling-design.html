@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hasan Raheem — An Independent Digital Storytelling Project</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --void:#14120e;
+    --void-raised:#1c1912;
+    --ink:#f2ece0;
+    --ink-dim:rgba(242,236,224,.56);
+    --ink-faint:rgba(242,236,224,.28);
+    --brass:#c69a44;
+    --rust:#7c2a1d;
+    --rust-ink:#f2e2d6;
+    --line:rgba(242,236,224,.14);
+    --line-strong:rgba(242,236,224,.3);
+    --parchment:#e9e2d2;
+    --parchment-ink:#1c1912;
+
+    --f-display:'Bricolage Grotesque', sans-serif;
+    --f-body:'Newsreader', serif;
+
+    --rail-w:88px;
+    --edge:clamp(20px,4vw,64px);
+  }
+
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{background:var(--void); scroll-behavior:smooth;}
+  body{
+    background:var(--void);
+    color:var(--ink);
+    font-family:var(--f-body);
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+  ::selection{ background:var(--brass); color:var(--void); }
+
+  img,svg{display:block; max-width:100%;}
+
+  a{ color:inherit; }
+
+  .u-eyebrow{
+    font-family:var(--f-display);
+    font-weight:500;
+    font-size:.72rem;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+  }
+  .u-eyebrow--brass{ color:var(--brass); }
+
+  .u-tabular{ font-variant-numeric:tabular-nums; font-feature-settings:'tnum' 1; }
+
+  /* ============ PLACEHOLDER MEDIA ============ */
+  .ph{
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(120% 140% at 15% 10%, rgba(242,236,224,.10), transparent 55%),
+      linear-gradient(155deg, #26221a 0%, #17150f 55%, #0e0c09 100%);
+    isolation:isolate;
+  }
+  .ph::before{
+    content:'';
+    position:absolute; inset:0;
+    background-image:
+      repeating-linear-gradient(115deg, rgba(242,236,224,.035) 0 2px, transparent 2px 5px);
+    mix-blend-mode:overlay;
+    opacity:.5;
+  }
+  .ph::after{
+    content:attr(data-tag);
+    position:absolute;
+    left:16px; bottom:14px;
+    font-family:var(--f-display);
+    font-size:.62rem;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:rgba(242,236,224,.4);
+    border:1px solid rgba(242,236,224,.22);
+    padding:5px 9px;
+    background:rgba(20,18,14,.4);
+    backdrop-filter:blur(2px);
+  }
+  .ph--rust{
+    background:
+      radial-gradient(130% 150% at 80% 0%, rgba(242,226,214,.12), transparent 55%),
+      linear-gradient(160deg,#8a3521 0%, #5e2013 60%, #3a130c 100%);
+  }
+  .ph--rust::after{ border-color:rgba(242,226,214,.35); color:rgba(242,226,214,.65); background:rgba(60,20,12,.35); }
+  .ph--parchment{
+    background:
+      radial-gradient(120% 140% at 20% 0%, rgba(28,25,18,.08), transparent 55%),
+      linear-gradient(155deg,#f1ead9 0%, #e3d9c2 100%);
+  }
+  .ph--parchment::before{ opacity:.25; mix-blend-mode:multiply; }
+  .ph--parchment::after{ color:rgba(28,25,18,.55); border-color:rgba(28,25,18,.2); background:rgba(233,226,210,.5); }
+
+  /* ============ RAIL NAV (desktop persistent) ============ */
+  .rail{
+    position:fixed;
+    top:0; left:0; bottom:0;
+    width:var(--rail-w);
+    z-index:50;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:space-between;
+    padding:28px 0 22px;
+    pointer-events:none;
+  }
+  .rail__mark{
+    writing-mode:vertical-rl;
+    font-family:var(--f-display);
+    font-weight:600;
+    font-size:.78rem;
+    letter-spacing:.22em;
+    color:var(--ink-dim);
+    pointer-events:auto;
+  }
+  .rail__chapters{
+    display:flex;
+    flex-direction:column;
+    gap:14px;
+    pointer-events:auto;
+  }
+  .rail__item{
+    font-family:var(--f-display);
+    font-size:.62rem;
+    letter-spacing:.1em;
+    color:var(--ink-faint);
+    writing-mode:vertical-rl;
+    text-transform:uppercase;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    transition:color .3s ease;
+    cursor:default;
+  }
+  .rail__item i{
+    display:block;
+    width:1px; height:16px;
+    background:var(--ink-faint);
+    transition:background .3s ease, height .3s ease;
+  }
+  .rail__item.is-current{ color:var(--brass); }
+  .rail__item.is-current i{ background:var(--brass); height:30px; }
+  .rail__foot{
+    font-family:var(--f-display);
+    font-size:.56rem;
+    letter-spacing:.08em;
+    writing-mode:vertical-rl;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    pointer-events:auto;
+  }
+
+  /* ============ MOBILE CHAPTER TAG ============ */
+  .m-tag{
+    display:none;
+    font-family:var(--f-display);
+    font-size:.68rem;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--brass);
+    padding:0 20px;
+    margin-bottom:22px;
+  }
+  .m-tag span{ color:var(--ink-faint); }
+
+  /* ============ SHARED CHAPTER SHELL ============ */
+  main{ margin-left:var(--rail-w); }
+  section.chapter{
+    position:relative;
+    min-height:100vh;
+    padding:0 var(--edge);
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    border-top:1px solid var(--line);
+  }
+  .chapter__meta{
+    display:flex;
+    align-items:baseline;
+    gap:18px;
+    margin-bottom:18px;
+  }
+  .chapter__num{
+    font-family:var(--f-display);
+    font-weight:600;
+    color:var(--brass);
+  }
+  .ghost-num{
+    position:absolute;
+    font-family:var(--f-display);
+    font-weight:700;
+    font-size:clamp(9rem,26vw,20rem);
+    line-height:1;
+    color:rgba(242,236,224,.045);
+    z-index:0;
+    user-select:none;
+    pointer-events:none;
+  }
+  .chapter__title{
+    font-family:var(--f-display);
+    font-weight:700;
+    line-height:.92;
+    letter-spacing:-.01em;
+    font-size:clamp(3.4rem,8.4vw,7.2rem);
+  }
+  .chapter__statement{
+    font-family:var(--f-body);
+    font-style:italic;
+    font-weight:400;
+    color:var(--ink-dim);
+    font-size:clamp(1.2rem,2vw,1.7rem);
+    max-width:20ch;
+    line-height:1.32;
+  }
+  .chapter__body{
+    font-family:var(--f-body);
+    font-weight:300;
+    color:var(--ink-dim);
+    font-size:clamp(1rem,1.05vw,1.1rem);
+    line-height:1.7;
+    max-width:46ch;
+  }
+  .grid-split{
+    position:relative;
+    z-index:1;
+    display:grid;
+    grid-template-columns:repeat(12,1fr);
+    gap:24px;
+    align-items:center;
+    width:100%;
+    padding:90px 0;
+  }
+
+  /* ============ HERO ============ */
+  .hero{
+    position:relative;
+    min-height:100vh;
+    display:flex;
+    flex-direction:column;
+    justify-content:space-between;
+    padding:36px var(--edge) 48px;
+    border-top:none;
+  }
+  .hero__ph{ position:absolute; inset:0; z-index:0; }
+  .hero__ph::after{ content:none; }
+  .hero__top{
+    position:relative; z-index:2;
+    display:flex; justify-content:space-between; align-items:flex-start;
+  }
+  .hero__title{
+    position:relative; z-index:2;
+    font-family:var(--f-display);
+    font-weight:800;
+    letter-spacing:-.02em;
+    line-height:.86;
+    font-size:clamp(4.6rem,13.5vw,11.5rem);
+    text-transform:uppercase;
+  }
+  .hero__bottom{
+    position:relative; z-index:2;
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+  }
+  .hero__disclaimer{
+    max-width:34ch;
+    font-family:var(--f-display);
+    font-size:.66rem;
+    letter-spacing:.08em;
+    color:var(--ink-faint);
+    text-transform:uppercase;
+    line-height:1.6;
+  }
+  .hero__scroll{
+    font-family:var(--f-display);
+    font-size:.66rem;
+    letter-spacing:.2em;
+    text-transform:uppercase;
+    color:var(--ink-dim);
+    display:flex; align-items:center; gap:10px;
+    writing-mode:vertical-rl;
+  }
+  .hero__scroll i{ width:1px; height:46px; background:var(--ink-faint); display:block; }
+
+  /* ============ 01 GILGIT — image left / text right ============ */
+  .ch-gilgit .grid-split{ min-height:100vh; }
+  .ch-gilgit .ph{ grid-column:1/8; aspect-ratio:4/5; }
+  .ch-gilgit .text{ grid-column:9/13; }
+  .ghost-gilgit{ top:6%; right:6%; }
+
+  /* ============ 02 KARACHI — denser, text left / image right, tighter crop ============ */
+  .ch-karachi{ background:var(--void-raised); }
+  .ch-karachi .grid-split{ min-height:100vh; }
+  .ch-karachi .text{ grid-column:1/6; }
+  .ch-karachi .ph{ grid-column:6/13; aspect-ratio:16/11; }
+  .ch-karachi .ph--2{ grid-column:6/9; aspect-ratio:3/4; margin-top:120px; }
+  .ch-karachi .ph--3{ grid-column:9/13; aspect-ratio:3/4; }
+  .ghost-karachi{ bottom:4%; left:6%; }
+
+  /* ============ 03 MEDICINE — structured ledger grid ============ */
+  .ch-medicine .grid-split{ min-height:100vh; align-items:start; padding-top:120px; }
+  .ch-medicine .text{ grid-column:1/6; }
+  .ch-medicine .ledger{
+    grid-column:7/13;
+    border-top:1px solid var(--line-strong);
+  }
+  .ledger__row{
+    display:flex; justify-content:space-between; align-items:baseline;
+    padding:16px 0;
+    border-bottom:1px solid var(--line);
+    font-family:var(--f-display);
+  }
+  .ledger__row span:first-child{ font-size:.68rem; letter-spacing:.1em; color:var(--ink-faint); text-transform:uppercase; }
+  .ledger__row span:last-child{ font-size:1rem; color:var(--ink); }
+  .medicine-line{
+    font-family:var(--f-body); font-style:italic; color:var(--ink-dim);
+    font-size:clamp(1.2rem,1.8vw,1.5rem); margin-top:34px; max-width:32ch;
+  }
+
+  /* ============ 04 EXPERIMENTATION — off-grid, broken alignment ============ */
+  .ch-experiment{ background:var(--void-raised); }
+  .ch-experiment .stage{
+    position:relative; min-height:100vh; padding:120px 0 90px;
+  }
+  .ch-experiment .ph{ position:absolute; }
+  .ch-experiment .ph--a{ top:8%; left:0; width:34%; aspect-ratio:3/4; transform:rotate(-2deg); }
+  .ch-experiment .ph--b{ top:28%; left:38%; width:26%; aspect-ratio:1/1; transform:rotate(3deg); }
+  .ch-experiment .waveform{ position:absolute; right:4%; bottom:14%; width:38%; opacity:.55; }
+  .ch-experiment .text{ position:relative; z-index:2; max-width:52ch; margin-top:0; }
+  .ghost-experiment{ top:2%; right:0; }
+
+  /* ============ 05 PAAS — centered, symmetric, quiet ============ */
+  .ch-paas{ align-items:center; }
+  .paas__wrap{
+    position:relative; z-index:1;
+    display:flex; flex-direction:column; align-items:center;
+    text-align:center; gap:26px;
+    padding:100px 0;
+  }
+  .paas__ph{ width:min(360px, 60vw); aspect-ratio:1/1; }
+  .ghost-paas{ top:50%; left:50%; transform:translate(-50%,-50%); font-size:clamp(10rem,34vw,26rem); }
+
+  /* ============ 06 AISAY KAISAY — rust, dramatic, full bleed ============ */
+  .ch-aisay{
+    background:var(--rust); color:var(--rust-ink); border-top-color:rgba(242,226,214,.2);
+  }
+  .ch-aisay .ph{ position:absolute; inset:0; z-index:0; opacity:.85; }
+  .ch-aisay .content{ position:relative; z-index:2; padding:100px 0; max-width:900px; }
+  .ch-aisay .u-eyebrow--brass{ color:#f2e2d6; }
+  .ch-aisay .chapter__num{ color:#f2e2d6; }
+  .ch-aisay .chapter__statement{ color:rgba(242,226,214,.75); }
+  .ghost-aisay{ color:rgba(242,226,214,.08); bottom:0; right:2%; }
+
+  /* ============ 07 GROWTH — horizontal timeline ============ */
+  .ch-growth{ padding-top:60px; padding-bottom:60px; }
+  .growth__head{ position:relative; z-index:1; margin-bottom:60px; }
+  .timeline{
+    position:relative; z-index:1;
+    display:flex; overflow-x:auto; gap:0; padding-bottom:20px;
+    scrollbar-width:thin;
+  }
+  .timeline::-webkit-scrollbar{ height:4px; }
+  .timeline::-webkit-scrollbar-thumb{ background:var(--line-strong); }
+  .tl-year{
+    min-width:220px; border-left:1px solid var(--line-strong); padding:0 26px 0 22px;
+    display:flex; flex-direction:column; gap:14px;
+  }
+  .tl-year__y{ font-family:var(--f-display); font-weight:700; font-size:1.4rem; color:var(--brass); }
+  .tl-year__item{ font-family:var(--f-body); font-size:.95rem; color:var(--ink-dim); line-height:1.5; }
+  .tl-year__item b{ color:var(--ink); font-weight:500; }
+
+  /* ============ 08 GLOBAL — largest, full bleed, city typography ============ */
+  .ch-global{
+    background:var(--rust); color:var(--rust-ink); padding-bottom:0;
+  }
+  .ch-global .ph{ position:absolute; inset:0; z-index:0; opacity:.9; }
+  .global__content{ position:relative; z-index:2; padding:110px 0 60px; }
+  .global__title{
+    font-family:var(--f-display); font-weight:800; text-transform:uppercase;
+    line-height:.9; font-size:clamp(3.6rem,9vw,8rem); letter-spacing:-.01em;
+  }
+  .global__cities{
+    position:relative; z-index:2;
+    display:flex; flex-wrap:wrap; gap:0 42px;
+    padding:0 0 90px;
+    border-top:1px solid rgba(242,226,214,.25);
+    margin-top:40px; padding-top:34px;
+  }
+  .global__cities span{
+    font-family:var(--f-display); font-weight:500; text-transform:uppercase;
+    letter-spacing:.04em; font-size:clamp(1.4rem,2.6vw,2.2rem);
+    color:rgba(242,226,214,.6);
+  }
+  .global__cities span.is-hi{ color:var(--rust-ink); }
+
+  /* ============ 09 MY TOP 3 — inverted parchment, personal voice ============ */
+  .ch-top3{
+    background:var(--parchment); color:var(--parchment-ink); border-top-color:rgba(28,25,18,.15);
+  }
+  .ch-top3 .u-eyebrow{ color:rgba(28,25,18,.55); }
+  .ch-top3 .u-eyebrow--brass{ color:var(--rust); }
+  .ch-top3 .chapter__title{ color:var(--parchment-ink); }
+  .ch-top3 .chapter__statement{ color:rgba(28,25,18,.62); }
+  .ghost-top3{ color:rgba(28,25,18,.05); }
+  .top3__intro{ position:relative; z-index:1; padding-top:110px; margin-bottom:60px; }
+  .top3__list{
+    position:relative; z-index:1;
+    display:grid; grid-template-columns:repeat(3,1fr); gap:32px;
+    padding-bottom:100px;
+  }
+  .top3__card{ display:flex; flex-direction:column; gap:18px; }
+  .top3__card .ph{ aspect-ratio:4/5; }
+  .top3__card .ph--parchment{ }
+  .top3__num{ font-family:var(--f-display); font-weight:700; font-size:1.1rem; color:var(--rust); }
+  .top3__song{ font-family:var(--f-display); font-weight:700; font-size:1.5rem; }
+  .top3__note{ font-family:var(--f-body); font-style:italic; font-size:.95rem; color:rgba(28,25,18,.6); max-width:32ch; }
+
+  /* ============ 10 TODAY — diagonal, contemporary ============ */
+  .ch-today .grid-split{ min-height:100vh; }
+  .ch-today .text{ grid-column:1/6; }
+  .ch-today .ph{ grid-column:6/13; aspect-ratio:5/6; transform:translateY(-30px); }
+  .ghost-today{ bottom:0; right:8%; }
+
+  /* ============ 11 WHAT REMAINS — quiet reflection ============ */
+  .ch-remains{ min-height:80vh; align-items:center; }
+  .remains__wrap{
+    position:relative; z-index:1; text-align:center; max-width:680px; margin:0 auto;
+    display:flex; flex-direction:column; align-items:center; gap:24px; padding:100px 0;
+  }
+  .remains__wrap .chapter__title{ font-size:clamp(2.8rem,6vw,4.4rem); }
+
+  /* ============ CLOSING ============ */
+  .closing{
+    min-height:100vh; display:flex; flex-direction:column; align-items:center;
+    justify-content:center; text-align:center; gap:28px; border-top:1px solid var(--line);
+    padding:60px var(--edge);
+  }
+  .closing__name{ font-family:var(--f-display); font-weight:800; text-transform:uppercase; font-size:clamp(2.4rem,6vw,4.2rem); letter-spacing:-.01em; }
+  .closing__roles{ display:flex; gap:22px; flex-wrap:wrap; justify-content:center; }
+  .closing__roles span{ font-family:var(--f-display); font-size:.7rem; letter-spacing:.14em; text-transform:uppercase; color:var(--ink-faint); }
+  .closing__credit{ font-family:var(--f-body); font-style:italic; color:var(--ink-dim); font-size:1.05rem; }
+  .closing__disclaimer{ font-family:var(--f-display); font-size:.62rem; letter-spacing:.08em; text-transform:uppercase; color:var(--ink-faint); max-width:46ch; line-height:1.7; margin-top:20px; }
+
+  /* ============================================================
+     RESPONSIVE — MOBILE (intentional recomposition, not a shrink)
+     ============================================================ */
+  @media (max-width:900px){
+    :root{ --edge:20px; }
+    .rail{ display:none; }
+    main{ margin-left:0; }
+    .m-tag{ display:block; padding-top:100px; }
+
+    section.chapter{ min-height:auto; padding:0 var(--edge) 90px; }
+    .grid-split{ display:flex; flex-direction:column; padding:0; gap:28px; }
+    .ch-gilgit .ph, .ch-karachi .ph, .ch-today .ph{ width:100%; transform:none; }
+    .ch-karachi .grid-split{ flex-direction:column; }
+    .ch-karachi .ph--2, .ch-karachi .ph--3{ display:none; }
+    .ch-medicine .grid-split{ flex-direction:column; padding-top:0; }
+    .ledger{ width:100%; }
+
+    .hero{ padding:24px var(--edge) 40px; min-height:100svh; }
+    .hero__title{ font-size:clamp(3.4rem,16vw,5.2rem); }
+    .hero__bottom{ flex-direction:column; align-items:flex-start; gap:20px; }
+    .hero__scroll{ writing-mode:horizontal-tb; }
+    .hero__scroll i{ width:36px; height:1px; }
+
+    .chapter__title{ font-size:clamp(2.6rem,13vw,4rem); }
+    .chapter__statement{ max-width:100%; }
+    .chapter__body{ max-width:100%; }
+    .ghost-num{ display:none; }
+
+    .ch-experiment .stage{ min-height:auto; padding:0; display:flex; flex-direction:column; gap:20px; }
+    .ch-experiment .ph{ position:relative; width:70%; transform:none; top:auto; left:auto; }
+    .ch-experiment .waveform{ position:relative; width:60%; right:auto; bottom:auto; }
+
+    .paas__wrap{ padding:0; }
+    .paas__ph{ width:80vw; }
+
+    .timeline{ gap:0; }
+    .tl-year{ min-width:180px; }
+
+    .global__cities{ gap:10px 26px; padding-top:24px; }
+    .global__cities span{ font-size:1.1rem; }
+
+    .top3__list{ grid-template-columns:1fr; padding-bottom:60px; }
+    .top3__intro{ padding-top:0; }
+
+    .closing__roles{ gap:14px 20px; }
+  }
+</style>
+</head>
+<body>
+
+  <!-- ============ PERSISTENT RAIL (desktop) ============ -->
+  <nav class="rail" aria-label="Chapter navigation">
+    <span class="rail__mark">HR — STORY</span>
+    <div class="rail__chapters">
+      <div class="rail__item is-current"><i></i>01 GILGIT</div>
+      <div class="rail__item"><i></i>02 KARACHI</div>
+      <div class="rail__item"><i></i>03 MEDICINE</div>
+      <div class="rail__item"><i></i>04 EXPERIMENT</div>
+      <div class="rail__item"><i></i>05 PAAS</div>
+      <div class="rail__item"><i></i>06 AISAY KAISAY</div>
+      <div class="rail__item"><i></i>07 GROWTH</div>
+      <div class="rail__item"><i></i>08 GLOBAL</div>
+      <div class="rail__item"><i></i>09 MY TOP 3</div>
+      <div class="rail__item"><i></i>10 TODAY</div>
+      <div class="rail__item"><i></i>11 REMAINS</div>
+    </div>
+    <span class="rail__foot">UNOFFICIAL</span>
+  </nav>
+
+  <main>
+
+    <!-- ============ HERO ============ -->
+    <header class="hero">
+      <div class="hero__ph ph" data-tag="VIDEO PLACEHOLDER — CINEMATIC PORTRAIT, FULL BLEED"></div>
+      <div class="hero__top">
+        <span class="u-eyebrow">HR — 2018 / PRESENT</span>
+        <span class="u-eyebrow">AN INDEPENDENT DIGITAL<br>STORYTELLING PROJECT</span>
+      </div>
+      <h1 class="hero__title">HASAN<br>RAHEEM</h1>
+      <div class="hero__bottom">
+        <p class="hero__disclaimer">Unofficial fan-made concept. Not affiliated with, endorsed, or sponsored by Hasan Raheem.</p>
+        <div class="hero__scroll">SCROLL<i></i></div>
+      </div>
+    </header>
+
+    <!-- ============ 01 — GILGIT ============ -->
+    <section class="chapter ch-gilgit">
+      <span class="ghost-num ghost-gilgit u-tabular">01</span>
+      <p class="m-tag">01 / 11 <span>— GILGIT</span></p>
+      <div class="grid-split">
+        <div class="ph" data-tag="IMG — GILGIT-BALTISTAN, LANDSCAPE"></div>
+        <div class="text">
+          <div class="chapter__meta">
+            <span class="chapter__num u-tabular">01</span>
+            <span class="u-eyebrow">GILGIT-BALTISTAN</span>
+          </div>
+          <h2 class="chapter__title">GILGIT</h2>
+          <p class="chapter__statement" style="margin-top:22px;">The beginning.</p>
+          <p class="chapter__body" style="margin-top:26px;">Before the songs, before Karachi — a childhood in the north, among mountains that don't hurry for anyone.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 — KARACHI ============ -->
+    <section class="chapter ch-karachi">
+      <span class="ghost-num ghost-karachi u-tabular">02</span>
+      <p class="m-tag">02 / 11 <span>— KARACHI</span></p>
+      <div class="grid-split">
+        <div class="text">
+          <div class="chapter__meta">
+            <span class="chapter__num u-tabular">02</span>
+            <span class="u-eyebrow">KARACHI, SINDH</span>
+          </div>
+          <h2 class="chapter__title">KARACHI</h2>
+          <p class="chapter__statement" style="margin-top:22px;">A new city.<br>A different path.</p>
+        </div>
+        <div class="ph" data-tag="IMG — KARACHI STREET, DUSK"></div>
+        <div class="ph ph--2" data-tag="IMG — CITY TEXTURE"></div>
+        <div class="ph ph--3" data-tag="IMG — STUDENT LIFE, NIGHT"></div>
+      </div>
+    </section>
+
+    <!-- ============ 03 — MEDICINE ============ -->
+    <section class="chapter ch-medicine">
+      <span class="ghost-num u-tabular" style="top:4%; left:4%;">03</span>
+      <p class="m-tag">03 / 11 <span>— MEDICINE</span></p>
+      <div class="grid-split">
+        <div class="text">
+          <div class="chapter__meta">
+            <span class="chapter__num u-tabular">03</span>
+            <span class="u-eyebrow">2015 — 2020</span>
+          </div>
+          <h2 class="chapter__title" style="font-size:clamp(2.8rem,6vw,5rem);">THE PLAN<br>WAS MEDICINE.</h2>
+          <p class="medicine-line">A structured path, chosen early — the one that was supposed to come first.</p>
+        </div>
+        <div class="ledger">
+          <div class="ledger__row"><span>Degree</span><span>MBBS</span></div>
+          <div class="ledger__row"><span>Institution</span><span>Bahria Medical &amp; Dental College</span></div>
+          <div class="ledger__row"><span>City</span><span>Karachi</span></div>
+          <div class="ledger__row"><span>Years active</span><span class="u-tabular">2015 — 2020</span></div>
+          <div class="ledger__row"><span>Field</span><span>General Medicine</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 — EXPERIMENTATION ============ -->
+    <section class="chapter ch-experiment">
+      <span class="ghost-num ghost-experiment u-tabular">04</span>
+      <p class="m-tag">04 / 11 <span>— EXPERIMENT</span></p>
+      <div class="stage">
+        <div class="chapter__meta">
+          <span class="chapter__num u-tabular">04</span>
+          <span class="u-eyebrow">SOMEWHERE, BETWEEN LECTURES</span>
+        </div>
+        <h2 class="chapter__title text" style="margin-top:14px;">SOMETHING ELSE<br>WAS TAKING SHAPE.</h2>
+        <p class="chapter__body text" style="margin-top:24px;">Melodies written in the margins. A guitar picked up between rotations. Nothing declared yet — just noticed.</p>
+        <div class="ph ph--a" data-tag="IMG — HANDWRITTEN LYRIC FRAGMENT"></div>
+        <div class="ph ph--b" data-tag="IMG — GUITAR, STUDY DESK"></div>
+        <svg class="waveform" viewBox="0 0 400 80" fill="none">
+          <path d="M0 40 L20 40 L28 12 L36 68 L44 24 L52 56 L60 40 L80 40 L88 8 L96 72 L104 20 L112 60 L120 40 L400 40" stroke="var(--ink-faint)" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============ 05 — PAAS ============ -->
+    <section class="chapter ch-paas">
+      <span class="ghost-num ghost-paas u-tabular">05</span>
+      <p class="m-tag">05 / 11 <span>— PAAS</span></p>
+      <div class="paas__wrap">
+        <span class="u-eyebrow">21.12.2018</span>
+        <div class="ph paas__ph" data-tag="IMG — PAAS, RELEASE ARTWORK"></div>
+        <h2 class="chapter__title" style="font-size:clamp(3rem,7vw,5.5rem);">PAAS</h2>
+        <p class="chapter__statement">The first release.</p>
+      </div>
+    </section>
+
+    <!-- ============ 06 — AISAY KAISAY ============ -->
+    <section class="chapter ch-aisay">
+      <span class="ghost-num ghost-aisay u-tabular">06</span>
+      <div class="ph" data-tag="IMG — AISAY KAISAY, PERFORMANCE STILL"></div>
+      <p class="m-tag" style="color:var(--rust-ink);">06 / 11 <span style="color:rgba(242,226,214,.6);">— AISAY KAISAY</span></p>
+      <div class="content">
+        <div class="chapter__meta">
+          <span class="chapter__num u-tabular">06</span>
+          <span class="u-eyebrow u-eyebrow--brass">2020</span>
+        </div>
+        <h2 class="chapter__title" style="text-transform:uppercase;">AISAY KAISAY</h2>
+        <p class="chapter__statement" style="margin-top:22px; max-width:26ch;">The breakthrough.</p>
+        <p class="chapter__body" style="color:rgba(242,226,214,.75); margin-top:26px;">A song that pushed his music to a much bigger audience.</p>
+      </div>
+    </section>
+
+    <!-- ============ 07 — GROWTH ============ -->
+    <section class="chapter ch-growth">
+      <p class="m-tag">07 / 11 <span>— GROWTH</span></p>
+      <div class="growth__head">
+        <div class="chapter__meta">
+          <span class="chapter__num u-tabular">07</span>
+          <span class="u-eyebrow">2020 — 2026</span>
+        </div>
+        <h2 class="chapter__title" style="font-size:clamp(2.8rem,6vw,5rem);">MOMENTUM.</h2>
+      </div>
+      <div class="timeline">
+        <div class="tl-year">
+          <span class="tl-year__y u-tabular">2020</span>
+          <p class="tl-year__item"><b>Aisay Kaisay</b> — the breakout single</p>
+        </div>
+        <div class="tl-year">
+          <span class="tl-year__y u-tabular">2021</span>
+          <p class="tl-year__item">Steady release schedule builds a dedicated audience</p>
+        </div>
+        <div class="tl-year">
+          <span class="tl-year__y u-tabular">2022</span>
+          <p class="tl-year__item"><b>PISA</b> recognition; growing critical attention</p>
+        </div>
+        <div class="tl-year">
+          <span class="tl-year__y u-tabular">2023</span>
+          <p class="tl-year__item"><b>Coke Studio</b> feature broadens the audience further</p>
+        </div>
+        <div class="tl-year">
+          <span class="tl-year__y u-tabular">2024</span>
+          <p class="tl-year__item"><b>Spotify RADAR</b> Pakistan; <b>Nautanki</b> released</p>
+        </div>
+        <div class="tl-year">
+          <span class="tl-year__y u-tabular">2025</span>
+          <p class="tl-year__item"><b>Maybe, It's Love</b> — continued sonic evolution</p>
+        </div>
+        <div class="tl-year">
+          <span class="tl-year__y u-tabular">2026</span>
+          <p class="tl-year__item"><b>Dil Kay Parday</b> — the most open record yet</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 08 — GLOBAL ============ -->
+    <section class="chapter ch-global">
+      <div class="ph" data-tag="IMG — INTERNATIONAL PERFORMANCE, STAGE WIDE"></div>
+      <p class="m-tag" style="color:var(--rust-ink);">08 / 11 <span style="color:rgba(242,226,214,.6);">— GLOBAL</span></p>
+      <div class="global__content">
+        <div class="chapter__meta">
+          <span class="chapter__num u-tabular">08</span>
+          <span class="u-eyebrow u-eyebrow--brass">DKP GLOBAL TOUR</span>
+        </div>
+        <h2 class="global__title">FROM GILGIT<br>TO THE WORLD.</h2>
+      </div>
+      <div class="global__cities">
+        <span class="is-hi">NEW YORK</span>
+        <span>TORONTO</span>
+        <span class="is-hi">LONDON</span>
+        <span>PARIS</span>
+        <span>BERLIN</span>
+        <span class="is-hi">AMSTERDAM</span>
+      </div>
+    </section>
+
+    <!-- ============ 09 — MY TOP 3 ============ -->
+    <section class="chapter ch-top3">
+      <span class="ghost-num ghost-top3 u-tabular" style="top:2%; right:4%;">09</span>
+      <p class="m-tag" style="color:var(--rust);">09 / 11 <span style="color:rgba(28,25,18,.5);">— MY TOP 3</span></p>
+      <div class="top3__intro">
+        <div class="chapter__meta">
+          <span class="chapter__num u-tabular">09</span>
+          <span class="u-eyebrow u-eyebrow--brass">A PERSONAL INTERPRETATION</span>
+        </div>
+        <h2 class="chapter__title">MY TOP 3</h2>
+        <p class="chapter__statement" style="margin-top:22px;">Three Hasan Raheem songs I keep coming back to.</p>
+      </div>
+      <div class="top3__list">
+        <div class="top3__card">
+          <div class="ph ph--parchment" data-tag="IMG — DIL KAY PARDAY"></div>
+          <span class="top3__num u-tabular">01</span>
+          <span class="top3__song">DIL KAY PARDAY</span>
+          <p class="top3__note">Open and unpredictable — the record that lets the chaos show.</p>
+        </div>
+        <div class="top3__card">
+          <div class="ph ph--parchment" data-tag="IMG — KANWAL"></div>
+          <span class="top3__num u-tabular">02</span>
+          <span class="top3__song">KANWAL</span>
+          <p class="top3__note">Quiet, unhurried — the one that rewards a second listen.</p>
+        </div>
+        <div class="top3__card">
+          <div class="ph ph--parchment" data-tag="IMG — KHOJ"></div>
+          <span class="top3__num u-tabular">03</span>
+          <span class="top3__song">KHOJ</span>
+          <p class="top3__note">A search, still going — fitting, for where the story is now.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 10 — TODAY ============ -->
+    <section class="chapter ch-today">
+      <span class="ghost-num ghost-today u-tabular">10</span>
+      <p class="m-tag">10 / 11 <span>— TODAY</span></p>
+      <div class="grid-split">
+        <div class="text">
+          <div class="chapter__meta">
+            <span class="chapter__num u-tabular">10</span>
+            <span class="u-eyebrow">2026</span>
+          </div>
+          <h2 class="chapter__title">THE STORY<br>IS STILL MOVING.</h2>
+          <p class="chapter__body" style="margin-top:26px;">New music, a global tour, an audience still growing — the present tense of an ongoing career.</p>
+        </div>
+        <div class="ph" data-tag="IMG — CURRENT, ON STAGE"></div>
+      </div>
+    </section>
+
+    <!-- ============ 11 — WHAT REMAINS ============ -->
+    <section class="chapter ch-remains">
+      <p class="m-tag">11 / 11 <span>— WHAT REMAINS</span></p>
+      <div class="remains__wrap">
+        <span class="u-eyebrow">A CLOSING THOUGHT</span>
+        <h2 class="chapter__title">WHAT REMAINS</h2>
+        <p class="chapter__statement">A different path doesn't always mean a wrong path.</p>
+      </div>
+    </section>
+
+    <!-- ============ CLOSING / CREDITS ============ -->
+    <footer class="closing">
+      <span class="u-eyebrow">HASAN RAHEEM</span>
+      <h2 class="closing__name">An Independent<br>Digital Storytelling Project</h2>
+      <div class="closing__roles">
+        <span>Research</span>
+        <span>Storytelling</span>
+        <span>UX / UI</span>
+        <span>Web Development</span>
+      </div>
+      <p class="closing__credit">Created by [Creator Name]</p>
+      <p class="closing__disclaimer">This is an independent, unofficial concept project. It is not affiliated with, endorsed by, or produced in collaboration with Hasan Raheem or his team. All rights to music, imagery, and likeness belong to their respective owners.</p>
+    </footer>
+
+  </main>
+
+</body>
+</html>

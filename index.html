@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="en" class="lenis lenis-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>HASAN RAHEEM — An Independent Digital Storytelling Project</title>
+  <meta name="description" content="An independent digital storytelling experience exploring Hasan Raheem's journey from Gilgit to the world through music, movement and memory.">
+  <meta name="theme-color" content="#14120e">
+  <meta name="robots" content="index, follow">
+
+  <!-- Open Graph / Facebook -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="HASAN RAHEEM — An Independent Digital Storytelling Project">
+  <meta property="og:description" content="An independent digital storytelling experience exploring Hasan Raheem's journey from Gilgit to the world through music, movement and memory.">
+  <meta property="og:image" content="img/Hasan hero-sec.webp">
+
+  <!-- Twitter / X -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="HASAN RAHEEM — An Independent Digital Storytelling Project">
+  <meta name="twitter:description" content="An independent digital storytelling experience exploring Hasan Raheem's journey from Gilgit to the world through music, movement and memory.">
+  <meta name="twitter:image" content="img/Hasan hero-sec.webp">
+
+  <!-- Preconnect & Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,200..800&family=Newsreader:ital,wght@0,300;0,400;0,500;1,300;1,400;1,500&display=swap" rel="stylesheet">
+
+  <!-- Preload Critical Hero Media -->
+  <link rel="preload" as="image" href="img/Hasan hero-sec.webp" fetchpriority="high">
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="src/css/styles.css">
+
+  <!-- External CDNs: Lenis, GSAP, ScrollTrigger, Anime.js, Motion -->
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.20/dist/lenis.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/3.2.2/anime.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/motion@10.18.0/dist/motion.js"></script>
+</head>
+<body>
+
+  <!-- ============ PERSISTENT LEFT RAIL (Desktop) ============ -->
+  <nav class="rail" aria-label="Chapter navigation" id="rail-nav">
+    <a href="#hero" class="rail__mark" aria-label="Scroll to top">HR — STORY</a>
+    <div class="rail__chapters" role="list">
+      <button class="rail__item is-current" data-target="#gilgit" role="listitem"><i></i>01 GILGIT</button>
+      <button class="rail__item" data-target="#karachi" role="listitem"><i></i>02 KARACHI</button>
+      <button class="rail__item" data-target="#medicine" role="listitem"><i></i>03 MEDICINE</button>
+      <button class="rail__item" data-target="#experiment" role="listitem"><i></i>04 EXPERIMENT</button>
+      <button class="rail__item" data-target="#paas" role="listitem"><i></i>05 PAAS</button>
+      <button class="rail__item" data-target="#aisay-kaisay" role="listitem"><i></i>06 AISAY KAISAY</button>
+      <button class="rail__item" data-target="#growth" role="listitem"><i></i>07 GROWTH</button>
+      <button class="rail__item" data-target="#global" role="listitem"><i></i>08 GLOBAL</button>
+      <button class="rail__item" data-target="#top-three" role="listitem"><i></i>09 MY TOP 3</button>
+      <button class="rail__item" data-target="#today" role="listitem"><i></i>10 TODAY</button>
+      <button class="rail__item" data-target="#what-remains" role="listitem"><i></i>11 REMAINS</button>
+    </div>
+    <span class="rail__foot">UNOFFICIAL</span>
+  </nav>
+
+  <!-- ============ MOBILE STICKY CHAPTER BAR ============ -->
+  <div class="m-sticky-bar" id="mobile-bar" aria-hidden="true">
+    <span class="m-sticky-bar__brand">HASAN RAHEEM</span>
+    <span class="m-sticky-bar__chapter" id="m-active-chapter">01 / 11 — GILGIT</span>
+  </div>
+
+  <!-- ============ MAIN CONTENT ============ -->
+  <main id="main-content">
+
+    <!-- ============ HERO ============ -->
+    <header class="hero" id="hero" data-chapter-title="HERO">
+      <div class="hero__bg-wrap">
+        <img class="hero__bg-img" src="img/hero.webp" alt="Hasan Raheem portrait atmosphere" fetchpriority="high">
+        <div class="hero__overlay"></div>
+      </div>
+      <div class="hero__top">
+        <span class="u-eyebrow js-meta-item">HR — 2018 / PRESENT</span>
+        <span class="u-eyebrow js-meta-item" style="text-align:right;">AN INDEPENDENT DIGITAL<br>STORYTELLING PROJECT</span>
+      </div>
+      <h1 class="hero__title js-split-title">HASAN<br>RAHEEM</h1>
+      <div class="hero__bottom">
+        <p class="hero__disclaimer js-meta-item">Unofficial concept project. Not affiliated with, endorsed, or sponsored by Hasan Raheem.</p>
+        <button class="hero__scroll" id="hero-scroll-btn" aria-label="Scroll down to begin story">SCROLL<i></i></button>
+      </div>
+    </header>
+
+    <!-- ============ 01 — GILGIT ============ -->
+    <section class="chapter ch-gilgit" id="gilgit" data-chapter-index="01" data-chapter-title="01 / 11 — GILGIT">
+      <span class="ghost-num ghost-gilgit u-tabular" aria-hidden="true">01</span>
+      <p class="m-tag">01 / 11 <span>— GILGIT</span></p>
+      <div class="grid-split">
+        <div class="ph js-reveal-ph">
+          <img class="img-cover js-parallax-img" src="img/gilgit.webp" alt="Gilgit-Baltistan mountain valley landscape" loading="lazy">
+        </div>
+        <div class="text">
+          <div class="chapter__meta js-meta-item">
+            <span class="chapter__num u-tabular">01</span>
+            <span class="u-eyebrow">GILGIT-BALTISTAN</span>
+          </div>
+          <h2 class="chapter__title js-split-title">GILGIT</h2>
+          <p class="chapter__statement js-split-line" style="margin-top:22px;">The beginning.</p>
+          <p class="chapter__body js-fade-body" style="margin-top:26px;">Before the songs, before Karachi — a childhood in the north, among mountains that don't hurry for anyone.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 02 — KARACHI ============ -->
+    <section class="chapter ch-karachi" id="karachi" data-chapter-index="02" data-chapter-title="02 / 11 — KARACHI">
+      <span class="ghost-num ghost-karachi u-tabular" aria-hidden="true">02</span>
+      <p class="m-tag">02 / 11 <span>— KARACHI</span></p>
+      <div class="grid-split">
+        <div class="text">
+          <div class="chapter__meta js-meta-item">
+            <span class="chapter__num u-tabular">02</span>
+            <span class="u-eyebrow">KARACHI, SINDH</span>
+          </div>
+          <h2 class="chapter__title js-split-title">KARACHI</h2>
+          <p class="chapter__statement js-split-line" style="margin-top:22px;">A new city.<br>A different path.</p>
+        </div>
+
+        <!-- Karachi Media Gallery (Desktop Asymmetric Grid + Mobile Horizontal Swipe) -->
+        <div class="karachi-media-grid" id="karachi-media-track">
+          <div class="ph ph--1 karachi-slide js-reveal-ph">
+            <img class="img-cover js-parallax-img" src="img/karachi.webp" alt="Karachi urban street dusk texture" loading="lazy">
+            <span class="slide-caption">01 / 03 — DUSK STREET</span>
+          </div>
+          <div class="ph ph--2 karachi-slide js-reveal-ph">
+            <img class="img-cover js-parallax-sub1" src="img/karachi1.webp" alt="Karachi metropolitan textures" loading="lazy">
+            <span class="slide-caption">02 / 03 — CITY TEXTURE</span>
+          </div>
+          <div class="ph ph--3 karachi-slide js-reveal-ph">
+            <img class="img-cover js-parallax-sub2" src="img/karachi2.webp" alt="Student life night atmosphere in Karachi" loading="lazy">
+            <span class="slide-caption">03 / 03 — STUDENT LIFE</span>
+          </div>
+        </div>
+
+        <!-- Mobile swipe indicator -->
+        <div class="m-karachi-hint" aria-hidden="true">
+          <span>CITY TEXTURES <span>← SWIPE →</span></span>
+          <span id="m-karachi-counter" class="u-tabular">1 / 3</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 03 — MEDICINE ============ -->
+    <section class="chapter ch-medicine" id="medicine" data-chapter-index="03" data-chapter-title="03 / 11 — MEDICINE">
+      <span class="ghost-num ghost-medicine u-tabular" aria-hidden="true">03</span>
+      <p class="m-tag">03 / 11 <span>— MEDICINE</span></p>
+      <div class="grid-split">
+        <div class="text">
+          <div class="chapter__meta js-meta-item">
+            <span class="chapter__num u-tabular">03</span>
+            <span class="u-eyebrow">2015 — 2020</span>
+          </div>
+          <h2 class="chapter__title js-split-title" style="font-size:clamp(2.8rem,6vw,5rem);">THE PLAN<br>WAS MEDICINE.</h2>
+          <p class="medicine-line js-fade-body">A structured path, chosen early — the one that was supposed to come first.</p>
+        </div>
+        <div class="ledger js-ledger-block">
+          <div class="ledger__row"><span>Degree</span><span>MBBS</span></div>
+          <div class="ledger__row"><span>Institution</span><span>Bahria Medical &amp; Dental College</span></div>
+          <div class="ledger__row"><span>City</span><span>Karachi</span></div>
+          <div class="ledger__row"><span>Years active</span><span class="u-tabular">2015 — 2020</span></div>
+          <div class="ledger__row"><span>Field</span><span>General Medicine</span></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 04 — EXPERIMENTATION ============ -->
+    <section class="chapter ch-experiment" id="experiment" data-chapter-index="04" data-chapter-title="04 / 11 — EXPERIMENT">
+      <span class="ghost-num ghost-experiment u-tabular" aria-hidden="true">04</span>
+      <p class="m-tag">04 / 11 <span>— EXPERIMENT</span></p>
+      <div class="stage">
+        <div class="chapter__meta js-meta-item">
+          <span class="chapter__num u-tabular">04</span>
+          <span class="u-eyebrow">SOMEWHERE, BETWEEN LECTURES</span>
+        </div>
+        <h2 class="chapter__title text js-split-title" style="margin-top:14px;">SOMETHING ELSE<br>WAS TAKING SHAPE.</h2>
+        <p class="chapter__body text js-fade-body" style="margin-top:24px;">Melodies written in the margins. A guitar picked up between rotations. Nothing declared yet — just noticed.</p>
+        <div class="ph ph--a js-tilt-card1 js-reveal-ph">
+          <img class="img-cover" src="img/live.webp" alt="Handwritten lyric fragments and musical notes" loading="lazy">
+        </div>
+        <div class="ph ph--b js-tilt-card2 js-reveal-ph">
+          <img class="img-cover" src="img/guiter.webp" alt="Acoustic guitar resting near study books" loading="lazy">
+        </div>
+        <svg class="waveform js-sound-wave" viewBox="0 0 400 80" fill="none" aria-hidden="true">
+          <path id="waveform-path" d="M0 40 L20 40 L28 12 L36 68 L44 24 L52 56 L60 40 L80 40 L88 8 L96 72 L104 20 L112 60 L120 40 L400 40" stroke="var(--ink-faint)" stroke-width="1.5"/>
+        </svg>
+      </div>
+    </section>
+
+    <!-- ============ 05 — PAAS ============ -->
+    <section class="chapter ch-paas" id="paas" data-chapter-index="05" data-chapter-title="05 / 11 — PAAS">
+      <span class="ghost-num ghost-paas u-tabular" aria-hidden="true">05</span>
+      <p class="m-tag">05 / 11 <span>— PAAS</span></p>
+      <div class="paas__wrap">
+        <span class="u-eyebrow js-meta-item">21.12.2018</span>
+        <div class="ph paas__ph js-paas-cover js-reveal-ph">
+          <img class="img-cover" src="img/paas.webp" alt="Paas release artwork" loading="lazy">
+        </div>
+        <h2 class="chapter__title js-split-title" style="font-size:clamp(3rem,7vw,5.5rem);">PAAS</h2>
+        <p class="chapter__statement js-split-line">The first release.</p>
+      </div>
+    </section>
+
+    <!-- ============ 06 — AISAY KAISAY ============ -->
+    <section class="chapter ch-aisay" id="aisay-kaisay" data-chapter-index="06" data-chapter-title="06 / 11 — AISAY KAISAY">
+      <span class="ghost-num ghost-aisay u-tabular" aria-hidden="true">06</span>
+      <div class="aisay-bg-layer">
+        <img class="aisay-bg-img js-aisay-bg" src="img/aisay-kaisay.webp" alt="Aisay Kaisay artwork and stage atmosphere" loading="lazy">
+      </div>
+      <p class="m-tag" style="color:var(--rust-ink);">06 / 11 <span style="color:rgba(242,226,214,.6);">— AISAY KAISAY</span></p>
+      <div class="content">
+        <div class="chapter__meta js-meta-item">
+          <span class="chapter__num u-tabular">06</span>
+          <span class="u-eyebrow u-eyebrow--brass">2020</span>
+        </div>
+        <h2 class="chapter__title js-split-title" style="text-transform:uppercase;">AISAY KAISAY</h2>
+        <p class="chapter__statement js-split-line" style="margin-top:22px; max-width:26ch;">The breakthrough.</p>
+        <p class="chapter__body js-fade-body" style="color:rgba(242,226,214,.85); margin-top:26px;">A song that pushed his music to a much bigger audience.</p>
+      </div>
+    </section>
+
+    <!-- ============ 07 — GROWTH / MOMENTUM ============ -->
+    <section class="chapter ch-growth" id="growth" data-chapter-index="07" data-chapter-title="07 / 11 — GROWTH">
+      <span class="ghost-num ghost-growth u-tabular" aria-hidden="true">07</span>
+      <p class="m-tag">07 / 11 <span>— GROWTH</span></p>
+
+      <div class="growth__inner">
+        <div class="growth__head">
+          <div class="chapter__meta js-meta-item">
+            <span class="chapter__num u-tabular">07</span>
+            <span class="u-eyebrow">2020 — 2026</span>
+          </div>
+          <h2 class="chapter__title js-split-title" style="font-size:clamp(2.8rem,6vw,5rem);">MOMENTUM.</h2>
+
+          <!-- Mobile Swipe Hint & Counter -->
+          <div class="m-timeline-hint" aria-hidden="true">
+            <span>TIMELINE <span>← SWIPE →</span></span>
+            <span id="m-timeline-counter" class="u-tabular">1 / 7</span>
+          </div>
+        </div>
+
+        <!-- Timeline Viewport & Horizontal Track -->
+        <div class="timeline-viewport">
+          <div class="timeline-axis-line">
+            <div class="timeline-axis-fill" id="timeline-axis-fill"></div>
+          </div>
+
+          <div class="timeline-track js-timeline-scroller" id="growth-timeline">
+            <!-- 2020 -->
+            <div class="tl-year tl-item" data-index="0">
+              <div class="tl-node" aria-hidden="true"></div>
+              <span class="tl-year__y u-tabular">2020</span>
+              <p class="tl-year__item"><b>Aisay Kaisay</b> — the breakout single</p>
+            </div>
+            <!-- 2021 -->
+            <div class="tl-year tl-item" data-index="1">
+              <div class="tl-node" aria-hidden="true"></div>
+              <span class="tl-year__y u-tabular">2021</span>
+              <p class="tl-year__item">Steady release schedule builds a dedicated audience</p>
+            </div>
+            <!-- 2022 -->
+            <div class="tl-year tl-item" data-index="2">
+              <div class="tl-node" aria-hidden="true"></div>
+              <span class="tl-year__y u-tabular">2022</span>
+              <p class="tl-year__item"><b>PISA</b> recognition; growing critical attention</p>
+            </div>
+            <!-- 2023 -->
+            <div class="tl-year tl-item" data-index="3">
+              <div class="tl-node" aria-hidden="true"></div>
+              <span class="tl-year__y u-tabular">2023</span>
+              <p class="tl-year__item"><b>Coke Studio</b> feature broadens the audience further</p>
+            </div>
+            <!-- 2024 -->
+            <div class="tl-year tl-item" data-index="4">
+              <div class="tl-node" aria-hidden="true"></div>
+              <span class="tl-year__y u-tabular">2024</span>
+              <p class="tl-year__item"><b>Spotify RADAR</b> Pakistan; <b>Nautanki</b> released</p>
+            </div>
+            <!-- 2025 -->
+            <div class="tl-year tl-item" data-index="5">
+              <div class="tl-node" aria-hidden="true"></div>
+              <span class="tl-year__y u-tabular">2025</span>
+              <p class="tl-year__item"><b>Maybe, It's Love</b> — continued sonic evolution</p>
+            </div>
+            <!-- 2026 -->
+            <div class="tl-year tl-item" data-index="6">
+              <div class="tl-node" aria-hidden="true"></div>
+              <span class="tl-year__y u-tabular">2026</span>
+              <p class="tl-year__item"><b>Dil Kay Parday</b> — the most open record yet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 08 — GLOBAL ============ -->
+    <section class="chapter ch-global" id="global" data-chapter-index="08" data-chapter-title="08 / 11 — GLOBAL">
+      <div class="global-bg-layer">
+        <img class="global-bg-img js-global-bg" src="img/ukt.webp" alt="UK tour international stage performance" loading="lazy">
+      </div>
+      <p class="m-tag" style="color:var(--rust-ink);">08 / 11 <span style="color:rgba(242,226,214,.6);">— GLOBAL</span></p>
+      <div class="global__content">
+        <div class="chapter__meta js-meta-item">
+          <span class="chapter__num u-tabular">08</span>
+          <span class="u-eyebrow u-eyebrow--brass">DKP GLOBAL TOUR</span>
+        </div>
+        <h2 class="global__title js-split-title">FROM GILGIT<br>TO THE WORLD.</h2>
+      </div>
+      <div class="global__cities js-global-cities">
+        <span class="is-hi">NEW YORK</span>
+        <span>TORONTO</span>
+        <span class="is-hi">LONDON</span>
+        <span>PARIS</span>
+        <span>BERLIN</span>
+        <span class="is-hi">AMSTERDAM</span>
+      </div>
+    </section>
+
+    <!-- ============ 09 — MY TOP 3 ============ -->
+    <section class="chapter ch-top3" id="top-three" data-chapter-index="09" data-chapter-title="09 / 11 — MY TOP 3">
+      <span class="ghost-num ghost-top3 u-tabular" style="top:2%; right:4%;" aria-hidden="true">09</span>
+      <p class="m-tag" style="color:var(--rust);">09 / 11 <span style="color:rgba(28,25,18,.5);">— MY TOP 3</span></p>
+      <div class="top3__intro">
+        <div class="chapter__meta js-meta-item">
+          <span class="chapter__num u-tabular">09</span>
+          <span class="u-eyebrow u-eyebrow--brass">A PERSONAL INTERPRETATION</span>
+        </div>
+        <h2 class="chapter__title js-split-title">MY TOP 3</h2>
+        <p class="chapter__statement js-split-line" style="margin-top:22px;">Three Hasan Raheem songs I keep coming back to.</p>
+      </div>
+      <div class="top3__list" id="top-three-list">
+        <!-- Card 1: Dil Kay Parday -->
+        <a href="https://music.youtube.com/watch?v=wvPqTrK7zRg&si=xvrUhPRQ7pkQLiuf" target="_blank" rel="noopener noreferrer" class="top3__card js-song-card" data-song-id="dil-kay-parday" aria-label="Listen to Dil Kay Parday on YouTube Music">
+          <div class="top3__card-media ph ph--parchment js-reveal-ph">
+            <img class="top3__card-img" src="img/dkp-or-khoj.webp" alt="Dil Kay Parday artwork cover" loading="lazy">
+          </div>
+          <div class="top3__card-header">
+            <span class="top3__num u-tabular">01</span>
+            <span class="top3__arrow" aria-hidden="true">↗</span>
+          </div>
+          <h3 class="top3__song">DIL KAY PARDAY</h3>
+          <p class="top3__note">Open and unpredictable — the record that lets the chaos show.</p>
+          <span class="top3__action">Listen on YouTube Music <span aria-hidden="true">↗</span></span>
+        </a>
+
+        <!-- Card 2: Kanwal -->
+        <a href="https://music.youtube.com/watch?v=VszzbwvWW_g&si=qIVRXk8ZjRPSuTGZ" target="_blank" rel="noopener noreferrer" class="top3__card js-song-card" data-song-id="kanwal" aria-label="Listen to Kanwal on YouTube Music">
+          <div class="top3__card-media ph ph--parchment js-reveal-ph">
+            <img class="top3__card-img" src="img/kanwal.webp" alt="Kanwal artwork cover" loading="lazy">
+          </div>
+          <div class="top3__card-header">
+            <span class="top3__num u-tabular">02</span>
+            <span class="top3__arrow" aria-hidden="true">↗</span>
+          </div>
+          <h3 class="top3__song">KANWAL</h3>
+          <p class="top3__note">Quiet, unhurried — the one that rewards a second listen.</p>
+          <span class="top3__action">Listen on YouTube Music <span aria-hidden="true">↗</span></span>
+        </a>
+
+        <!-- Card 3: Khoj -->
+        <a href="https://music.youtube.com/watch?v=vpjF5DW8axw&si=8ud7wivv7sALy7ee" target="_blank" rel="noopener noreferrer" class="top3__card js-song-card" data-song-id="khoj" aria-label="Listen to Khoj on YouTube Music">
+          <div class="top3__card-media ph ph--parchment js-reveal-ph">
+            <img class="top3__card-img" src="img/dkp-or-khoj.webp" alt="Khoj artwork cover" loading="lazy">
+          </div>
+          <div class="top3__card-header">
+            <span class="top3__num u-tabular">03</span>
+            <span class="top3__arrow" aria-hidden="true">↗</span>
+          </div>
+          <h3 class="top3__song">KHOJ</h3>
+          <p class="top3__note">A search, still going — fitting, for where the story is now.</p>
+          <span class="top3__action">Listen on YouTube Music <span aria-hidden="true">↗</span></span>
+        </a>
+      </div>
+    </section>
+
+    <!-- ============ 10 — TODAY ============ -->
+    <section class="chapter ch-today" id="today" data-chapter-index="10" data-chapter-title="10 / 11 — TODAY">
+      <span class="ghost-num ghost-today u-tabular" aria-hidden="true">10</span>
+      <p class="m-tag">10 / 11 <span>— TODAY</span></p>
+      <div class="grid-split">
+        <div class="text">
+          <div class="chapter__meta js-meta-item">
+            <span class="chapter__num u-tabular">10</span>
+            <span class="u-eyebrow">2026</span>
+          </div>
+          <h2 class="chapter__title js-split-title">THE STORY<br>IS STILL MOVING.</h2>
+          <p class="chapter__body js-fade-body" style="margin-top:26px;">New music, a global tour, an audience still growing — the present tense of an ongoing career.</p>
+        </div>
+        <div class="ph js-reveal-ph">
+          <img class="img-cover js-parallax-img" src="img/performance.webp" alt="Hasan Raheem live performance on stage" loading="lazy">
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ 11 — WHAT REMAINS ============ -->
+    <section class="chapter ch-remains" id="what-remains" data-chapter-index="11" data-chapter-title="11 / 11 — WHAT REMAINS">
+      <p class="m-tag">11 / 11 <span>— WHAT REMAINS</span></p>
+      <div class="remains__wrap">
+        <span class="u-eyebrow js-meta-item">A CLOSING THOUGHT</span>
+        <h2 class="chapter__title js-split-title">WHAT REMAINS</h2>
+        <p class="chapter__statement js-split-line">A different path doesn't always mean a wrong path.</p>
+      </div>
+    </section>
+
+    <!-- ============ CLOSING / CREDITS ============ -->
+    <footer class="closing" id="closing">
+      <span class="u-eyebrow js-meta-item">HASAN RAHEEM</span>
+      <h2 class="closing__name js-split-title">An Independent<br>Digital Storytelling Project</h2>
+      <div class="closing__roles">
+        <span class="js-meta-item">Research</span>
+        <span class="js-meta-item">Storytelling</span>
+        <span class="js-meta-item">UX / UI</span>
+        <span class="js-meta-item">Web Development</span>
+      </div>
+      <p class="closing__credit">Designed and developed as an independent exploration of story, identity, music and digital experience.</p>
+      <p class="closing__disclaimer">This is an independent, unofficial concept project. It is not affiliated with, endorsed by, or produced in collaboration with Hasan Raheem or his team. All rights to music, imagery, and likeness belong to their respective owners.</p>
+    </footer>
+
+  </main>
+
+  <!-- Main JavaScript Application -->
+  <script type="module" src="src/js/main.js"></script>
+</body>
+</html>
